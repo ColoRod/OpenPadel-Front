@@ -1,0 +1,38 @@
+/* src/components/atoms/StatusDot.module.scss */
+@use '../../styles/App.scss' as *;
+@use "sass:color";
+
+.dot {
+  display: inline-block;
+  
+  // REQUISITO: Debe ser un círculo (ej: 8px de lado)
+  width: $grid-unit; /* 8px */
+  height: $grid-unit; /* 8px */
+  
+  border-radius: 50%;
+  margin-right: $grid-unit * 2; /* 16px de margen a la derecha */
+  flex-shrink: 0;
+}
+
+// ----------------------------------------
+// ESTADOS
+// ----------------------------------------
+
+/* 1. Disponible (Sincronizado con Button: primary) */
+.available {
+  background-color: $color-primary-green;
+}
+
+/* 2. Reservando/Pendiente (Sincronizado con Button: pending) */
+// Cambiamos el nombre de la clase de .selected a .pending para consistencia
+.pending {
+  background-color: $color-pending-orange; // ⬅️ Usa la variable Naranja/Pendiente
+}
+
+/* 3. No Disponible / Reservado (Sincronizado con Button: reserved) */
+.reserved {
+  // El boceto parece usar un punto más sutil para los no disponibles, 
+  // pero mantendremos el rojo de la variable si es el estado final de no disponibilidad.
+  background-color: $color-reserved-red; 
+  // Opcional: si quieres el punto oscuro, usa: background-color: $color-dark-bg;
+}

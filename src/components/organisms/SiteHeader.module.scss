@@ -1,0 +1,63 @@
+/* src/components/organisms/SiteHeader.module.scss */
+@use '../../styles/App.scss' as *;
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 0 $grid-unit * 4;
+  min-height: $grid-unit * 5;
+  overflow: visible; //Permitir que los hijos sobresalgan
+  position: relative; //Necesario para posicionar hijos de forma absoluta 
+  background-image: url('../../assets/fondo-header.jpg');
+  //CONFIGURAR CÓMO SE MUESTRA LA IMAGEN DE FONDO
+  background-size: cover;      // La imagen cubrirá todo el espacio disponible
+  background-position: center; // Centra la imagen
+  background-repeat: no-repeat; // Evita que la imagen se repita
+  
+  //Una sombra sutil
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.logoWrapper {
+    position: absolute; //Sacamos el logo del flujo normal de Flexbox
+    left: $grid-unit * 1.5; // Lo alineamos con el padding izquierdo
+    top: 50%; // Lo posicionamos al 50% vertical 
+    transform: translateY(-50%); // Lo centramos verticalmente 
+    z-index: 10; // Aseguramos que esté sobre la imagen de fondo
+}
+.pageTitle {
+  // RESERVA
+  font-size: $grid-unit * 4;
+  font-weight: 700;
+  color: $color-accent-lima;
+  text-transform: uppercase;
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  flex-grow: 0;
+}
+.userStatus {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: $grid-unit * 4; /*Distancia del borde derecho (32px) */
+  top: 50%; /* 50% desde arriba */
+  transform: translateY(-50%); /* Centra verticalmente */
+  z-index: 10;
+}
+
+.profileText {
+  /*Estilo para el texto "PERFIL" */
+  font-family: 'Montserrat', sans-serif;
+  text-decoration: none;
+  font-size: $grid-unit * 2.1; /* 16px */
+  font-weight: 500;
+  text-transform: uppercase;
+  color: $color-text-light;
+  cursor: pointer;
+}
+
+.userStatus:hover .profileText {
+    text-decoration: underline;
+}

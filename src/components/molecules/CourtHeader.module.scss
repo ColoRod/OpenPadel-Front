@@ -1,0 +1,69 @@
+/* src/components/molecules/CourtHeader.module.scss */
+@use '../../styles/App.scss' as *;
+@use '../atoms/Button.module.scss' as button; // Para el estilo de navButton
+@use "sass:color";
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  background-color: $color-accent-lima; /* Fondo oscuro principal */
+  padding: $grid-unit 0; /* 8px padding vertical, 0 horizontal */
+  color: $color-text-dark;
+  border-bottom: 2px solid $color-primary-green; /* Línea verde de acento */
+}
+
+.courtList {
+  display: flex;
+  overflow-x: scroll; 
+  gap: $grid-unit * 3; /* 24px de separación entre nombres de cancha */
+  
+  // Ocultar la barra de desplazamiento
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.courtName {
+  padding: $grid-unit; /* 8px de padding */
+  font-size: $grid-unit * 2.3; /* 16px */
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap; /* Evita que los nombres se envuelvan */
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.2s;
+  &:hover {
+    background-color: lighten($color-accent-lima, 5%); 
+    color: $color-text-dark;
+    border-bottom: 2px solid $color-dark-bg;
+  }
+}
+
+.active {
+  color: $color-text-light;
+  border-bottom: 2px solid $color-background-blue;
+}
+
+.navButton {
+  /* Estilos heredados del botón */
+  @include button.button-base; 
+  width: $grid-unit * 4; 
+  height: $grid-unit * 4; 
+  background-color: $color-accent-lima; 
+  color: $color-text-light;
+  border: none;
+  flex-shrink: 0;
+  
+  &:hover {
+    background-color: color.adjust($color-dark-bg, $lightness: 10%);
+  }
+}
+
+.navLeft {
+  margin-right: $grid-unit;
+}
+
+.navRight {
+  margin-left: $grid-unit;
+}

@@ -1,0 +1,23 @@
+/* src/components/atoms/IconLabel.module.scss */
+@use '../../styles/App.scss' as *;
+@use "sass:color";
+
+.labelContainer {
+  display: flex;
+  align-items: center;
+  padding: calc($grid-unit / 2) 0;
+  color: $color-text-dark;
+  font-size: $grid-unit * 1.5;
+}
+
+.iconImage {
+  width: $grid-unit * 6;   // 16px de ancho (ajusta si tus íconos son más grandes)
+  height: $grid-unit * 6;  // 16px de alto
+  margin-right: $grid-unit; // 8px de separación
+  object-fit: contain; // Asegura que la imagen se ajuste sin recortarse
+}
+
+.text {
+  font-weight: 500;
+  text-transform: uppercase;
+}

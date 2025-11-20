@@ -1,0 +1,29 @@
+/* src/styles/App.scss */
+// 1. Reset Básico y Fuente (Asumiremos Roboto o similar)
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #212529; /* Fondo oscuro común */
+}
+* {
+    box-sizing: border-box;
+}
+
+// 2. Variables de Color
+$color-primary-green: #00BF63;       // Verde principal (reservar)
+$color-pending-orange: #ff7301;      // RESERVANDO (Naranja)
+$color-secondary-yellow: #FFC107;    // Amarillo de acento (para resaltar)
+$color-accent-lima: #C8E948;         // Verde lima de Titulo y Seleccion del box
+$color-background-blue: #034B59;     // Azul de fondo y seleccion del box
+$color-body-gray: #E6E6E6;           // Gris de fondo
+$color-dark-bg: #212529;             // Fondo oscuro principal
+$color-light-bg: #f8f9fa;            // Fondo claro (para el calendario)
+$color-header-green-dark: #3f470d; // Verde oscuro para headers
+$color-text-light: #ffffff;
+$color-text-dark: #343a40;
+$color-reserved-red: #FF3131;        // Color de reservado/no disponible
+$color-divider: #cccccc;
+
+// 3. Variables de Grid (8px)
+$grid-unit: 8px;
+$border-radius: calc($grid-unit / 2); // 4px

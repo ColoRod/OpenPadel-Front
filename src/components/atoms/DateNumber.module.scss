@@ -1,0 +1,48 @@
+/* src/components/atoms/DateNumber.module.scss */
+@use '../../styles/App.scss' as *;
+@use "sass:color";
+
+.dateBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  // Altura y Ancho que sean múltiplos de 8
+  width: $grid-unit * 6; // 48px
+  height: $grid-unit * 8; // 64px
+  
+  cursor: pointer;
+  background-color: $color-background-blue; // Fondo oscuro para los días inactivos
+  color: $color-text-light;
+  padding: calc($grid-unit / 2);
+  transition: background-color 0.2s;
+  
+  .day {
+    font-size: $grid-unit * 1.5; // 12px
+    font-weight: 300;
+  }
+  .date {
+    font-size: $grid-unit * 3; // 24px
+    font-weight: bold;
+    line-height: 1;
+  }
+  .month {
+    font-size: $grid-unit * 1.5; // 12px
+  }
+
+  &:hover {
+    background-color: color.adjust($color-dark-bg, $lightness: 10%);
+  }
+}
+
+/* Estado Activo (Día Seleccionado) */
+.active {
+  background-color: $color-accent-lima; // Verde vibrante
+  color: $color-dark-bg;
+  border: none;
+  
+  &:hover {
+    background-color: $color-primary-green;
+  }
+}

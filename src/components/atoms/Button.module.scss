@@ -1,0 +1,52 @@
+/* src/components/atoms/Button.module.scss */
+@use '../../styles/App.scss' as *;
+@use "sass:color";
+
+@mixin button-base {
+  border: none;
+  cursor: pointer;
+  border-radius: $border-radius;
+  font-weight: bold;
+  font-size: $grid-unit * 2; 
+  padding: $grid-unit ($grid-unit * 2);
+  transition: background-color 0.3s;
+  text-transform: uppercase;
+}
+
+.btn {
+  @include button-base;
+  width: 100%;
+}
+
+// ----------------------------------------
+// VARIANTES Y ESTADOS
+// ----------------------------------------
+
+/* 1. RESERVAR (Verde - Acción Principal) */
+.primary {
+  background-color: $color-primary-green;
+  color: $color-text-light;
+  cursor: pointer; // Clickeable
+
+  &:hover {
+    background-color: color.adjust($color-primary-green, $lightness: -10%);
+  }
+}
+
+/* 2. RESERVANDO (Naranja/Amarillo - Pendiente) */
+.pending {
+  background-color: $color-pending-orange; // Reservando
+  color: $color-text-light; 
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.9;
+}
+
+/* 3. RESERVADO (Rojo - No Disponible) */
+.reserved {
+  background-color: $color-reserved-red;
+  color: $color-text-light;
+  pointer-events: none; // No se puede hacer clic
+  cursor: default;
+  opacity: 0.8; 
+}

@@ -1,0 +1,25 @@
+/* src/components/molecules/ClubTitleBar.module.scss */
+@use '../../styles/App.scss' as *;
+@use "sass:color";
+
+.titleBar {
+    width: 100%;
+    //Fondo que contraste (ej: el mismo verde del header o un color neutro)
+    background-color: color.adjust($color-header-green-dark, $lightness: 15%); 
+    
+    // Padding vertical para darle altura al rectángulo
+    padding: $grid-unit * 1.5; // 12px vertical, 0 horizontal
+    
+    // Centrar el contenido y limitar el ancho para que se vea limpio
+    text-align: center;
+}
+
+.clubName {
+    //Aseguramos que el texto resalte y esté centrado
+    color: $color-light-bg; // Texto blanco
+    font-family: 'Poppins', sans-serif;
+
+    font-size: $grid-unit * 2.2; // Tamaño de fuente grande (24px)
+    font-weight: 900;
+    margin: 0; // Quitar márgenes por defecto
+}

@@ -1,0 +1,36 @@
+/* src/components/molecules/CourtDetails.module.scss */
+@use '../../styles/App.scss' as *;
+
+.detailsContainer {
+  display: flex;
+  flex-direction: column; /* Coloca los elementos verticalmente */
+  
+  // Padding para separarlo del borde del contenedor principal
+  padding: $grid-unit * 1;
+  
+  // Estilos de caja ligera, como se ve en el boceto
+  background-color: $color-light-bg; /* Fondo claro */
+  border-radius: $border-radius; /* 4px */
+  
+  // Un pequeño borde o sombra sutil si se desea para el efecto de tarjeta
+  border: 1px solid $color-divider;
+  
+  // Separación entre cada IconLabel
+  gap: calc($grid-unit / 2); /* 8px de separación entre las filas de especificaciones */
+}
+.imageWrapper {
+  width: 100%;
+  height: $grid-unit * 25; /* 200px (o la altura que desees) */
+  overflow: hidden; /* ¡CRÍTICO! Asegura que la imagen se recorta con el radio */
+  
+  //APLICA AQUÍ EL BORDER-RADIUS
+  border-radius: $grid-unit; /* Por ejemplo, 8px de redondeo */
+  // Si quieres más redondeado, usa: border-radius: $grid-unit * 1.5; (12px)
+  // O un valor fijo como: border-radius: 10px;
+}
+
+.courtImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* La imagen cubre el espacio sin distorsionarse */
+}

@@ -1,0 +1,40 @@
+/* src/components/molecules/TimeSlot.module.scss */
+@use '../../styles/App.scss' as *;
+
+.timeSlot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Distribuye el espacio entre los grupos */
+  
+  padding: $grid-unit * 1.5 0; /* 12px de padding vertical */
+  border-bottom: 1px solid $color-divider; /* Separador sutil */
+  color: $color-text-dark; /* Asumimos que esta lista está sobre fondo claro */
+}
+
+/* Texto de la Hora (Ej: 10:00 - 11:30) */
+.timeText {
+  flex-basis: 120px; /* Ancho fijo para la hora para alineación */
+  flex-shrink: 0;
+  font-weight: 500;
+  font-size: $grid-unit * 2; /* 16px */
+  margin-right: $grid-unit * 2; /* 16px de separación */
+}
+
+/* Texto de Disponibilidad (DISPONIBLE / NO DISPONIBLE) */
+.statusText {
+  flex-basis: 180px; /* Ancho fijo para alinear con la hora */
+  flex-shrink: 1;
+  font-size: $grid-unit * 2;
+  font-weight: 400;
+  white-space: nowrap;
+  
+  // Alinea el texto a la derecha para empujar el botón si es necesario
+  text-align: left; 
+  margin-right: $grid-unit * 4; /* 32px de margen antes del botón */
+}
+
+/* El átomo Button se adapta al 100% de su contenedor de tiempo */
+.timeSlot :global(.button-container) {
+  width: 140px; /* Ancho fijo para todos los botones de reserva */
+  flex-shrink: 0;
+}

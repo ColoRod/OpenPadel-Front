@@ -1,0 +1,46 @@
+/* src/components/molecules/DateSelector.module.scss */
+@use '../../styles/App.scss' as *;
+@use '../atoms/Button.module.scss' as button;
+
+.selectorContainer {
+  display: flex;
+  align-items: center;
+  background-color: $color-background-blue; /* Fondo oscuro principal para esta sección */
+  padding: $grid-unit;
+}
+
+.dateList {
+  display: flex;
+  overflow-x: scroll; /* Permite el desplazamiento horizontal */
+  gap: $grid-unit; /* 8px de separación entre cada DateNumber */
+  
+  // Truco para ocultar la barra de desplazamiento en navegadores
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
+.navButton {
+  // 2. CORRECCIÓN: @extend debe ser lo primero. Usar la sintaxis con alias.
+  @include button.button-base;
+  
+  // 3. Propiedades CSS (todas terminan en ;)
+  width: $grid-unit * 4; /* 32px de ancho */
+  height: $grid-unit * 4; /* 32px de altura */
+  background-color: transparent;
+  color: $color-text-light;
+  border-color: transparent;
+  flex-shrink: 0; // Asegúrate de que las propiedades terminan en ;
+  
+  // 4. CORRECCIÓN DE SINTAXIS: Los anidados deben empezar sin el ampersand (&)
+  // ya que no estás modificando la clase .navButton, sino anidando selectores estándar.
+
+  &:first-child {
+    margin-right: $grid-unit;
+  }
+  &:last-child {
+    margin-left: $grid-unit;
+  }
+}
