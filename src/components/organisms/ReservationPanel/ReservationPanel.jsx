@@ -1,9 +1,9 @@
 // src/components/organisms/ReservationPanel.jsx
 import React, { useState, useEffect } from 'react';
-import CourtHeader from '../molecules/CourtHeader';
-import DateSelector from '../molecules/DateSelector';
-import CourtDetails from '../molecules/CourtDetails';
-import TimeSlot from '../molecules/TimeSlot';
+import CourtHeader from '../../molecules/CourtHeader/CourtHeader';
+import DateSelector from '../../molecules/DateSelector/DateSelector';
+import CourtDetails from '../../molecules/CourtDetails/CourtDetails';
+import TimeSlot from '../../molecules/TimeSlot/TimeSlot';
 import styles from './ReservationPanel.module.scss';
 
 export default function ReservationPanel({

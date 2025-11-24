@@ -1,5 +1,5 @@
 // src/components/molecules/CourtDetails.jsx
-import IconLabel from '../atoms/IconLabel';
+import IconLabel from '../../atoms/IconLabel/IconLabel';
 import styles from './CourtDetails.module.scss';
 
 export default function CourtDetails({ 

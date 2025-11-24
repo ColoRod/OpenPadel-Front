@@ -1,5 +1,5 @@
 // src/components/molecules/DateSelector.jsx
-import DateNumber from '../atoms/DateNumber';
+import DateNumber from '../../atoms/DateNumber/DateNumber';
 import styles from './DateSelector.module.scss';
 
 // El prop 'dates' será el array de días que se generó en la lógica superior.

@@ -1,8 +1,8 @@
 // src/pages/ReservationPage.jsx
 import React, { useState, useEffect, useCallback } from 'react';
 import MainLayout from '../templates/MainLayout';
-import ClubTitleBar from '../components/molecules/ClubTitleBar'; 
-import ReservationPanel from '../components/organisms/ReservationPanel';
+import ClubTitleBar from '../components/molecules/ClubTitleBar/ClubTitleBar'; 
+import ReservationPanel from '../components/organisms/ReservationPanel/ReservationPanel';
 
 const generateDates = () => {
     const dates = [];

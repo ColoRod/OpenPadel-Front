@@ -1,6 +1,6 @@
 /* src/components/molecules/DateSelector.module.scss */
-@use '../../styles/App.scss' as *;
-@use '../atoms/Button.module.scss' as button;
+@use '../../../styles/App.scss' as *;
+@use '../../atoms/Button/Button.module.scss' as button;
 
 .selectorContainer {
   display: flex;

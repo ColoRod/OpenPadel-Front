@@ -1,5 +1,5 @@
 // src/components/organisms/SiteHeader.jsx
-import Logo from '../atoms/Logo';
+import Logo from '../../atoms/Logo/Logo';
 import styles from './SiteHeader.module.scss';
 
 export default function SiteHeader() {

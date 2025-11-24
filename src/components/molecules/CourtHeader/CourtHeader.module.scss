@@ -1,6 +1,6 @@
 /* src/components/molecules/CourtHeader.module.scss */
-@use '../../styles/App.scss' as *;
-@use '../atoms/Button.module.scss' as button; // Para el estilo de navButton
+@use '../../../styles/App.scss' as *;
+@use '../../atoms/Button/Button.module.scss' as button; // Para el estilo de navButton
 @use "sass:color";
 
 .headerContainer {

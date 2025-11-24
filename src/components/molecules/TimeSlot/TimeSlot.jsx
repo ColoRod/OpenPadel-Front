@@ -1,6 +1,6 @@
 // src/components/molecules/TimeSlot.jsx
-import StatusDot from '../atoms/StatusDot';
-import Button from '../atoms/Button';
+import StatusDot from '../../atoms/StatusDot/StatusDot';
+import Button from '../../atoms/Button/Button';
 import styles from './TimeSlot.module.scss';
 
 export default function TimeSlot({ time, status, onReserve }) {

@@ -1,10 +1,6 @@
 // src/templates/MainLayout.jsx
 // Importamos los Organismos necesarios
-import SiteHeader from '../components/organisms/SiteHeader';
-//import ReservationPanel from '../components/organisms/ReservationPanel';
-
-// Importamos los estilos SCSS del Layout (aunque está simple, es buena práctica)
-// import styles from './MainLayout.module.scss'; 
+import SiteHeader from '../components/organisms/SiteHeader/SiteHeader';
 
 // Este componente recibe TODAS las props de la lógica de negocio desde ReservationPage.jsx
 export default function MainLayout( { children } ) {
