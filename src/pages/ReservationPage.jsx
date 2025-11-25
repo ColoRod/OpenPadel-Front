@@ -45,7 +45,7 @@ export default function ReservationPage() {
 
         setIsTimeSlotLoading(true);
         const formattedDate = date.toISOString().split('T')[0];
-        const url = `${BASE_URL}/horarios/${canchaId}?fecha=${formattedDate}`;
+        const url = `${BASE_URL}/api/v1/horarios/${canchaId}?fecha=${formattedDate}`;
         
         try {
             const response = await fetch(url);
@@ -110,7 +110,7 @@ export default function ReservationPage() {
         setIsTimeSlotLoading(true);
 
         try {
-            const response = await fetch(`${BASE_URL}/horarios`, {
+            const response = await fetch(`${BASE_URL}/api/v1/horarios`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)

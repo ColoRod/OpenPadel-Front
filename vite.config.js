@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
   // Carga las variables de entorno del .env según el modo (development/production)
   // El tercer parámetro '' permite leer variables sin el prefijo VITE_
   const env = loadEnv(mode, process.cwd(), 'VITE_');
-  const API_URL = env.VITE_API_URL || 'http://localhost:3000';
+  const API_URL = env.VITE_API_URL || 'http://localhost:3000';  
 
   return {
     plugins: [react()],
