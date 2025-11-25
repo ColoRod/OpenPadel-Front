@@ -4,7 +4,20 @@ import MainLayout from '../templates/MainLayout';
 import ClubTitleBar from '../components/molecules/ClubTitleBar/ClubTitleBar'; 
 import ReservationPanel from '../components/organisms/ReservationPanel/ReservationPanel';
 
-const BASE_URL = import.meta.env.VITE_API_URL || '/api/v1';
+const BASE_URL = import.meta.env.VITE_API_URL;
+
+const buildUrl = (path) => {
+    // Si BASE_URL está definida (Vercel), construimos la URL remota completa
+    if (BASE_URL) {
+        // Notar que el path ya incluye /api/v1, si usaste la solución anterior:
+        // const url = buildUrl('/api/v1/horarios/' + canchaId);
+        return `${BASE_URL}${path}`;
+    }
+    
+    // Si estamos en desarrollo local (Vite), usamos el prefijo proxy que configuraste.
+    // El vite.config.js sabe que /api/v1 debe ir a localhost:3000
+    return path; // Usamos el path completo que empieza por /api/v1/
+};
 
 const generateDates = () => {
     const dates = [];
@@ -45,7 +58,7 @@ export default function ReservationPage() {
 
         setIsTimeSlotLoading(true);
         const formattedDate = date.toISOString().split('T')[0];
-        const url = `${BASE_URL}/api/v1/horarios/${canchaId}?fecha=${formattedDate}`;
+        const url = buildUrl(`/api/v1/horarios/${canchaId}?fecha=${formattedDate}`);
         
         try {
             const response = await fetch(url);
@@ -110,7 +123,7 @@ export default function ReservationPage() {
         setIsTimeSlotLoading(true);
 
         try {
-            const response = await fetch(`${BASE_URL}/api/v1/horarios`, {
+            const response = await fetch(buildUrl('/api/v1/horarios'), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
