@@ -25,15 +25,16 @@ export default function ReservationPanel({
     useEffect(() => {
         const fetchCanchas = async () => {
             try {
-                const response = await fetch('/api/v1/canchas'); 
-                
+                // Usa VITE_API_URL si está definido, si no usa ruta relativa -> proxy
+                const API_BASE = import.meta.env.VITE_API_URL || '';
+                const response = await fetch(`${API_BASE}/api/v1/canchas`);
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
+
                 const data = await response.json();
-                
-                // NOTA: Puedes combinar las dos revisiones de data.data en una sola
+
                 if (data.data && data.data.length > 0) {
                     setCanchas(data.data);
                     // NOTIFICAR LA CANCHA INICIAL DESPUÉS DE LA CARGA
