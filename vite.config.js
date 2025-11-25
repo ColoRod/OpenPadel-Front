@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig(({ mode }) => {
   // Carga las variables de entorno del .env según el modo (development/production)
   // El tercer parámetro '' permite leer variables sin el prefijo VITE_
-  const env = loadEnv(mode, process.cwd(), '');
+  const env = loadEnv(mode, process.cwd(), 'VITE_');
   const API_URL = env.API_URL || 'http://localhost:3000';
 
   return {

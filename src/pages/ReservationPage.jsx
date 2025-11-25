@@ -4,6 +4,8 @@ import MainLayout from '../templates/MainLayout';
 import ClubTitleBar from '../components/molecules/ClubTitleBar/ClubTitleBar'; 
 import ReservationPanel from '../components/organisms/ReservationPanel/ReservationPanel';
 
+const BASE_URL = import.meta.env.VITE_API_URL || '/api/v1';
+
 const generateDates = () => {
     const dates = [];
     const DAYS = ['DOM', 'LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB'];
@@ -43,7 +45,7 @@ export default function ReservationPage() {
 
         setIsTimeSlotLoading(true);
         const formattedDate = date.toISOString().split('T')[0];
-        const url = `/api/v1/horarios/${canchaId}?fecha=${formattedDate}`;
+        const url = `${BASE_URL}/horarios/${canchaId}?fecha=${formattedDate}`;
         
         try {
             const response = await fetch(url);
@@ -99,7 +101,7 @@ export default function ReservationPage() {
         const horaFin = `${endDate.getHours().toString().padStart(2, '0')}:${endDate.getMinutes().toString().padStart(2, '0')}:00`;
 
         const payload = {
-            canchaId: activeCanchaId, // ⬅️ Usa la ID del estado
+            canchaId: activeCanchaId,
             fecha: selectedDate.toISOString().split('T')[0],
             horaInicio: `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:00`,
             horaFin: horaFin
@@ -108,7 +110,7 @@ export default function ReservationPage() {
         setIsTimeSlotLoading(true);
 
         try {
-            const response = await fetch('/api/v1/horarios', {
+            const response = await fetch(`${BASE_URL}/horarios`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
