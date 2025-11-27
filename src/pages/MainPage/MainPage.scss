@@ -1,0 +1,98 @@
+@import "../../assets/styles/variables";
+
+.main-page {
+  background-color: $color-body-gray;
+  min-height: 100vh;
+
+  .subheader {
+    padding: 1rem 2rem;
+    background-color: lighten($color-verde-padel, 25%);
+    h2 {
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+
+  .content {
+    text-align: center;
+    padding: 2rem;
+
+    .title {
+      margin-bottom: 2rem;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+  }
+}
+.reservas {
+  padding: 1.5rem 2rem;
+  background-color: $color-verde-padel;
+  
+
+  h2 {
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .reservas-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .reserva-card {
+    background-color: $color-tarjeta;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 5px $color-sombra;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2.4rem;
+    min-height: 100px;
+
+    .reserva-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      p {
+        margin: 0.3rem 0;
+      }
+    }
+
+    .btn-cancelar {
+      background-color: #FF3131;
+      color: white;
+      border: none;
+      padding: 1rem 0.8rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      cursor: pointer;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.2;
+      min-width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: all 0.3s ease;
+      height: 75px;
+      flex-shrink: 0;
+
+      &:hover {
+        background-color: #d62b2b;
+        box-shadow: 0 4px 12px rgba(255, 49, 49, 0.4);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}

@@ -13,7 +13,8 @@ export default function ReservationPanel({
     selectedDate,
     onSelectDate,
     onCanchaChange,
-    isTimeSlotLoading
+    isTimeSlotLoading,
+    filterClubName = null
 }) {
     // ESTADOS PARA MANEJAR DATOS DEL BACKEND
     const [canchas, setCanchas] = useState([]);
@@ -27,7 +28,14 @@ export default function ReservationPanel({
             try {
                 // Usa VITE_API_URL si está definido, si no usa ruta relativa -> proxy
                 const API_BASE = import.meta.env.VITE_API_URL || '';
-                const response = await fetch(`${API_BASE}/api/v1/canchas`);
+                
+                // If filterClubName is provided, fetch canchas for that club specifically
+                let url = `${API_BASE}/api/v1/canchas`;
+                if (filterClubName) {
+                    url = `${API_BASE}/api/v1/canchas/club/${encodeURIComponent(filterClubName)}`;
+                }
+                
+                const response = await fetch(url);
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -35,10 +43,11 @@ export default function ReservationPanel({
 
                 const data = await response.json();
 
-                if (data.data && data.data.length > 0) {
-                    setCanchas(data.data);
+                    if (data.data && data.data.length > 0) {
+                    const canchasSet = data.data;
+                    setCanchas(canchasSet);
                     // NOTIFICAR LA CANCHA INICIAL DESPUÉS DE LA CARGA
-                    onCanchaChange(data.data[0].cancha_id); 
+                    if (canchasSet.length > 0) onCanchaChange(canchasSet[0].cancha_id, canchasSet[0].cancha_nombre);
                 }
 
             } catch (err) {
@@ -50,13 +59,13 @@ export default function ReservationPanel({
         };
 
         fetchCanchas();
-    }, []); 
+    }, [filterClubName]); 
 
     const handleSelectCourt = (index) => {
         setActiveCourtIndex(index);
         // NOTIFICAR CADA VEZ QUE LA CANCHA CAMBIA
-        // Usamos la ID real del objeto de cancha para el fetch de horarios en la página
-        onCanchaChange(canchas[index].cancha_id); 
+        // Pasamos la ID y el nombre para que el padre pueda actualizar la URL
+        onCanchaChange(canchas[index].cancha_id, canchas[index].cancha_nombre); 
     };
 
     const activeCourt = canchas[activeCourtIndex];

@@ -1,5 +1,6 @@
 // src/pages/ReservationPage.jsx
 import React, { useState, useEffect, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import MainLayout from '../templates/MainLayout';
 import ClubTitleBar from '../components/molecules/ClubTitleBar/ClubTitleBar'; 
 import ReservationPanel from '../components/organisms/ReservationPanel/ReservationPanel';
@@ -25,8 +26,10 @@ const generateDates = () => {
 };
 
 export default function ReservationPage() {
+    const { clubName: clubNameParam, canchaName: canchaNameParam } = useParams();
     
-    const [clubName] = useState("MERCEDES PADEL");
+    const [clubName, setClubName] = useState(clubNameParam ? decodeURIComponent(clubNameParam) : 'Cargando...');
+    const [canchaName, setCanchaName] = useState(canchaNameParam ? decodeURIComponent(canchaNameParam) : 'Cargando...');
     const initialCalendarDates = generateDates();
     const [calendarDates] = useState(initialCalendarDates);
 
@@ -36,6 +39,53 @@ export default function ReservationPage() {
     //ESTADO UNIFICADO PARA LA CANCHA ACTIVA
     const [activeCanchaId, setActiveCanchaId] = useState(null); 
     const [isTimeSlotLoading, setIsTimeSlotLoading] = useState(false);
+
+    // Fetch cancha ID from name and set as active on load
+    useEffect(() => {
+        const fetchCanchaIdByName = async () => {
+                try {
+                    const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+                    const url = `${API_BASE}/api/v1/canchas/club/${encodeURIComponent(clubNameParam)}`;
+                    console.log('[ReservationPage] Fetching canchas for club:', clubNameParam, url);
+                    const response = await fetch(url);
+
+                    if (!response.ok) {
+                        console.error('[ReservationPage] Response not ok:', response.status);
+                        throw new Error("Error fetching canchas");
+                    }
+
+                    const data = await response.json();
+                    console.log('[ReservationPage] Raw canchas response:', data);
+
+                    // Normalize to array
+                    let canchas = [];
+                    if (Array.isArray(data)) canchas = data;
+                    else if (data && Array.isArray(data.data)) canchas = data.data;
+                    else if (data && Array.isArray(data.canchas)) canchas = data.canchas;
+
+                    // Try to find cancha by a few possible name keys
+                    const decodedCanchaName = canchaNameParam ? decodeURIComponent(canchaNameParam) : '';
+                    const selectedCancha = canchas.find(c => (c.nombre && c.nombre === decodedCanchaName) || (c.cancha_nombre && c.cancha_nombre === decodedCanchaName) || (c.nombre_cancha && c.nombre_cancha === decodedCanchaName));
+
+                    if (selectedCancha) {
+                        setActiveCanchaId(selectedCancha.cancha_id || selectedCancha.id || selectedCancha.canchaId);
+                        setCanchaName(selectedCancha.nombre || selectedCancha.cancha_nombre || selectedCancha.nombre_cancha);
+                    } else if (canchas.length > 0) {
+                        // Fallback to first cancha
+                        const first = canchas[0];
+                        setActiveCanchaId(first.cancha_id || first.id || first.canchaId);
+                        setCanchaName(first.nombre || first.cancha_nombre || first.nombre_cancha || 'Cancha');
+                    }
+                } catch (error) {
+                    console.error("Error fetching cancha:", error);
+                }
+            };
+
+        if (clubNameParam && canchaNameParam) {
+            setClubName(decodeURIComponent(clubNameParam));
+            fetchCanchaIdByName();
+        }
+    }, [clubNameParam, canchaNameParam]);
 
     const fetchTimeSlots = useCallback(async (canchaId, date) => {
         
@@ -68,13 +118,26 @@ export default function ReservationPage() {
     // 3. HANDLERS (Usan la función fetchTimeSlots)
     // ----------------------------------------------------
     
+    const navigate = useNavigate();
+
     // Handler llamado por ReservationPanel al cambiar de cancha o al cargar
-    const handleCanchaChange = useCallback((newCanchaId) => {
-        //newCanchaId ahora se usa como argumento
+    // Ahora acepta (newCanchaId, newCanchaName) y actualiza la URL
+    const handleCanchaChange = useCallback((newCanchaId, newCanchaName) => {
         setActiveCanchaId(newCanchaId);
+        // Actualizar el nombre local de la cancha si viene
+        if (newCanchaName) {
+            setCanchaName(newCanchaName);
+            // Actualizar la URL para reflejar la cancha seleccionada
+            // Mantener el club actual en la ruta
+            if (clubName) {
+                const newUrl = `/reserva/${encodeURIComponent(clubName)}/${encodeURIComponent(newCanchaName)}`;
+                console.log('[ReservationPage] Navigating to', newUrl);
+                navigate(newUrl, { replace: false });
+            }
+        }
         // Llama a la función de fetching con la nueva ID y la fecha actual
-        fetchTimeSlots(newCanchaId, selectedDate); 
-    }, [fetchTimeSlots, selectedDate]); // Depende de selectedDate y fetchTimeSlots
+        fetchTimeSlots(newCanchaId, selectedDate);
+    }, [fetchTimeSlots, selectedDate, clubName, navigate]); // Depende de selectedDate, fetchTimeSlots, clubName, navigate
 
     // Handler llamado al seleccionar una fecha del calendario
     const handleSelectDate = useCallback((date) => {
@@ -123,7 +186,8 @@ export default function ReservationPage() {
                 // Recargar horarios para mostrar el slot como 'pending'
                 fetchTimeSlots(activeCanchaId, selectedDate);
             } else {
-                alert(`Error al reservar: ${result.message || 'El turno ya no está disponible.'}`);
+                console.error('Reserva failed response:', response.status, result);
+                alert(`Error al reservar:${result.message || 'El turno ya no está disponible.'}`);
             }
 
         } catch (error) {
@@ -139,9 +203,9 @@ export default function ReservationPage() {
     // ----------------------------------------------------
 
     return (
-        <MainLayout> 
+        <MainLayout title={'RESERVA'}> 
             <ClubTitleBar clubName={clubName} /> 
-            
+
             <ReservationPanel 
                 // Nueva prop para que el Panel notifique su cancha activa
                 onCanchaChange={handleCanchaChange} 
@@ -155,6 +219,8 @@ export default function ReservationPage() {
                 timeSlots={timeSlots}
                 isTimeSlotLoading={isTimeSlotLoading}
                 onReserve={handleReserve}
+                // Filtrar canchas por club seleccionado
+                filterClubName={clubName}
             />
         </MainLayout>
     );

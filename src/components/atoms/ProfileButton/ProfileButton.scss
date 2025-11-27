@@ -1,0 +1,16 @@
+@import "../../../assets/styles/variables";
+
+.profile-btn {
+  background: none;
+  border: none;
+  img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+}

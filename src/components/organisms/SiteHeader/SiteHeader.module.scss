@@ -18,11 +18,23 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .logoWrapper {
-    position: absolute; //Sacamos el logo del flujo normal de Flexbox
-    left: $grid-unit * 1.5; // Lo alineamos con el padding izquierdo
-    top: 50%; // Lo posicionamos al 50% vertical 
-    transform: translateY(-50%); // Lo centramos verticalmente 
-    z-index: 10; // Aseguramos que esté sobre la imagen de fondo
+  position: absolute; //Sacamos el logo del flujo normal de Flexbox
+  left: $grid-unit * 1.5; // Lo alineamos con el padding izquierdo
+  top: 50%; // Lo posicionamos al 50% vertical 
+  transform: translateY(-50%); // Lo centramos verticalmente 
+  z-index: 10; // Aseguramos que esté sobre la imagen de fondo
+
+  /* Efecto visual para el logo/back button */
+  cursor: pointer;
+  transition: transform 150ms cubic-bezier(.2,.8,.2,1), box-shadow 150ms;
+}
+.logoWrapper:focus,
+.logoWrapper:hover {
+  transform: translateY(-50%) scale(1.06);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.18);
+}
+.logoWrapper:active {
+  transform: translateY(-50%) scale(0.98);
 }
 .pageTitle {
   // RESERVA
