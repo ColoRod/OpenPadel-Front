@@ -6,9 +6,6 @@ import styles from './DateSelector.module.scss';
 export default function DateSelector({ dates, selectedDate, onSelectDate }) {
   return (
     <div className={styles.selectorContainer}>
-      {/* Botón de navegación izquierda (>) */}
-      <button className={styles.navButton}>{"<"}</button>
-      
       {/* Lista de Días */}
       <div className={styles.dateList}>
         {dates.map((dayData) => (
@@ -23,9 +20,6 @@ export default function DateSelector({ dates, selectedDate, onSelectDate }) {
           />
         ))}
       </div>
-      
-      {/* Botón de navegación derecha (>) */}
-      <button className={styles.navButton}>{">"}</button>
     </div>
   );
 }

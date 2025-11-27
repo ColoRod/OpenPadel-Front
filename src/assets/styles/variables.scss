@@ -1,0 +1,39 @@
+// src/assets/styles/variables.scss
+// Paleta y variables compartidas para todo el proyecto
+
+// Colores principales
+$color-primary-green: #00BF63;
+$color-pending-orange: #ff7301;
+$color-secondary-yellow: #FFC107;
+$color-accent-lima: #C8E948;
+$color-background-blue: #034B59;
+$color-body-gray: #E6E6E6;
+$color-dark-bg: #212529;
+$color-light-bg: #f8f9fa;
+$color-header-green-dark: #3f470d;
+$color-text-light: #ffffff;
+$color-text-dark: #343a40;
+$color-reserved-red: #FF3131;
+$color-divider: #cccccc;
+
+// Colores del diseño original del usuario
+$color-fondo: #F9FAFB;
+$color-verde-padel: #C7EA46;
+$color-verde-oscuro: #A7D129;
+
+$color-texto: #1E1E1E;
+$color-texto-secundario: #6B7280;
+$color-tarjeta: #FFFFFF;
+$color-sombra: rgba(0, 0, 0, 0.1);
+
+// Grid
+$grid-unit: 8px;
+$border-radius: 4px;
+
+// Tipografía base
+$font-stack: 'Roboto', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+
+// Export quick helpers (optional)
+@function rem($px) {
+  @return #{$px/16}rem;
+}

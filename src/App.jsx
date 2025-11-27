@@ -1,9 +1,13 @@
 // src/App.jsx
-import ReservationPage from './pages/ReservationPage';
+import { Routes, Route } from "react-router-dom";
+import MainPage from "./pages/MainPage/MainPage";
+import ReservationPage from "./pages/ReservationPage";
 
 export default function App() {
-  // En este proyecto, App.jsx puede ser simple, o manejar el estado global (ej: club seleccionado)
   return (
-    <ReservationPage />
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/reserva/:clubName/:canchaName" element={<ReservationPage />} />
+    </Routes>
   );
 }

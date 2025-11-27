@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   background-color: $color-accent-lima; /* Fondo oscuro principal */
-  padding: $grid-unit 0; /* 8px padding vertical, 0 horizontal */
+  padding: $grid-unit 2*$grid-unit; /* 8px padding vertical, 0 horizontal */
   color: $color-text-dark;
   border-bottom: 2px solid $color-primary-green; /* Línea verde de acento */
 }
