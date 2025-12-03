@@ -11,10 +11,10 @@
 }
 
 .iconImage {
-  width: $grid-unit * 6;   // 16px de ancho (ajusta si tus íconos son más grandes)
-  height: $grid-unit * 6;  // 16px de alto
+  width: $grid-unit * 6;
+  height: $grid-unit * 6;  
   margin-right: $grid-unit; // 8px de separación
-  object-fit: contain; // Asegura que la imagen se ajuste sin recortarse
+  object-fit: cover; // Asegura que la imagen se ajuste sin recortarse
 }
 
 .text {

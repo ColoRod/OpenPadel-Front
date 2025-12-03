@@ -8,8 +8,7 @@
   min-height: $grid-unit * 5;
   overflow: visible; //Permitir que los hijos sobresalgan
   position: relative; //Necesario para posicionar hijos de forma absoluta 
-  background-image: url('../../../assets/fondo-header.jpg');
-  //CONFIGURAR CÓMO SE MUESTRA LA IMAGEN DE FONDO
+  background-image: url('../../../../public/images/fondo-header.jpg');
   background-size: cover;      // La imagen cubrirá todo el espacio disponible
   background-position: center; // Centra la imagen
   background-repeat: no-repeat; // Evita que la imagen se repita

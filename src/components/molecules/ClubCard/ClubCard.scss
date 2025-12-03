@@ -54,10 +54,15 @@
       padding: 0.6rem 1rem;
       margin-bottom: 1rem;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-
-      .icon {
-        font-size: 1rem;
+      img {
+      width: $grid-unit * 8 !important;
+      height: $grid-unit * 8 !important;
+      flex-shrink: 0; /* EVITA QUE LA IMAGEN SE ENCOJA EN FLEXBOX */
+      object-fit: cover;
       }
+      /*.icon {
+        font-size: 1rem;
+      }*/
 
       p {
         margin: 0;
@@ -81,10 +86,16 @@
         gap: 0.4rem;
         font-size: 1rem;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-
-        .icon {
-          font-size: 1.2rem;
+        
+        img {
+        width: $grid-unit * 8 !important;
+        height: $grid-unit * 8 !important;
+        flex-shrink: 0; /* EVITA QUE LA IMAGEN SE ENCOJA EN FLEXBOX */
+        object-fit: cover;
         }
+        /*.icon {
+          font-size: 1.2rem;
+        }*/
       }
     }
   }
