@@ -154,6 +154,21 @@ export default function ReservationPage() {
             return;
         }
 
+        // Obtener el userId del usuario autenticado
+        const userStr = localStorage.getItem("user");
+        if (!userStr) {
+            alert("Usuario no autenticado. Por favor, inicie sesión nuevamente.");
+            return;
+        }
+        
+        const user = JSON.parse(userStr);
+        const userId = user.id || user.user_id;
+        
+        if (!userId) {
+            alert("No se pudo obtener el ID del usuario.");
+            return;
+        }
+
         // --- Lógica de cálculo de horaFin (Asumimos 90 minutos) ---
         const [startTimeStr] = slotTime.split(' - '); 
         const [h, m] = startTimeStr.split(':').map(Number);
@@ -164,6 +179,7 @@ export default function ReservationPage() {
 
         const payload = {
             canchaId: activeCanchaId,
+            userId: userId,
             fecha: selectedDate.toISOString().split('T')[0],
             horaInicio: `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:00`,
             horaFin: horaFin

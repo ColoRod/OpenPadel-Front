@@ -76,10 +76,27 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    const userId = 2;
-
     const fetchReservas = async () => {
       try {
+        // Obtener el usuario desde localStorage
+        const userStr = localStorage.getItem("user");
+        if (!userStr) {
+          console.error("No user found in localStorage");
+          setReservas([]);
+          setLoading(false);
+          return;
+        }
+        
+        const user = JSON.parse(userStr);
+        const userId = user.id || user.user_id;
+        
+        if (!userId) {
+          console.error("User ID not found in user object:", user);
+          setReservas([]);
+          setLoading(false);
+          return;
+        }
+
         const API_BASE = import.meta.env.VITE_API_URL || '';
         const res = await fetch(`${API_BASE}/api/reservas/${userId}`);
         if (!res.ok) throw new Error("Error fetching reservas");

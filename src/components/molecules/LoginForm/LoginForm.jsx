@@ -38,7 +38,11 @@ localStorage.setItem("token", data.token);
 localStorage.setItem("user", JSON.stringify(data.user));
 localStorage.setItem("categoria", data.user.rol || "jugador");
 
-navigate("/home");
+if (data.user.rol === "admin") {
+  navigate("/admin/confirmations");
+} else {
+  navigate("/home");
+}
 
 } catch (err) {
 console.error("Error en login:", err);

@@ -34,23 +34,31 @@ const AdminConfirmationPage = () => {
   // --- 2. FUNCIÓN PARA OBTENER DATOS (GET) ---
   const fetchReservations = async () => {
     try {
-      // Usamos la ruta relativa "/api/reservas".
-      // Gracias al Proxy en vite.config.js, esto va a http://localhost:3000/api/reservas
-      const response = await fetch('/api/reservas');
-      
+      // Usamos la ruta administrativa: '/api/reservas/admin'
+      // Incluimos el token en Authorization si existe
+      const token = localStorage.getItem('token');
+      console.log("📋 AdminConfirmationPage - Token desde localStorage:", token ? "✓ Presente" : "✗ No presente");
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+      console.log("📋 AdminConfirmationPage - Haciendo fetch a /api/reservas/admin");
+      const response = await fetch('/api/reservas/admin', { headers });
+
+      console.log("📋 AdminConfirmationPage - Response status:", response.status);
+
       if (!response.ok) {
         throw new Error('Error en la respuesta del servidor');
       }
 
       const data = await response.json();
-      
+      console.log("📋 AdminConfirmationPage - Datos recibidos:", data);
+
       // Transformamos los datos planos a la estructura agrupada
       const groupedData = groupReservationsByCourt(data);
-      
+
       setCourtsData(groupedData);
       setIsLoading(false);
     } catch (error) {
-      console.error("Error conectando al backend:", error);
+      console.error("❌ AdminConfirmationPage - Error conectando al backend:", error);
       setIsLoading(false); // Dejamos de cargar aunque haya error
     }
   };
@@ -65,17 +73,24 @@ const AdminConfirmationPage = () => {
   const handleProcessReservation = async (courtId, reservationId, action) => {
     console.log(`Procesando acción: ${action} en reserva ${reservationId}`);
     
-    // URL base relativa
-    const API_URL = '/api/reservas'; 
-
+    // URL base relativa (admin)
+    const API_URL = '/api/reservas/admin'; 
+    const token = localStorage.getItem('token');
+    const headers = {
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    };
+    
+    console.log("📋 handleProcessReservation - Headers:", headers);
+    
     try {
       if (action === 'confirmar') {
         // CONFIRMAR: Usamos PUT para actualizar el estado en la base de datos
-        await fetch(`${API_URL}/${reservationId}/confirmar`, { method: 'PUT' });
+        await fetch(`${API_URL}/${reservationId}/confirmar`, { method: 'PUT', headers });
       
       } else if (action === 'rechazar' || action === 'cancelar') {
         // RECHAZAR O CANCELAR: Usamos DELETE para borrar la reserva de la base de datos
-        await fetch(`${API_URL}/${reservationId}`, { method: 'DELETE' });
+        await fetch(`${API_URL}/${reservationId}`, { method: 'DELETE', headers });
       }
 
       // SI TODO SALIÓ BIEN: Volvemos a pedir los datos para ver los cambios reflejados en pantalla

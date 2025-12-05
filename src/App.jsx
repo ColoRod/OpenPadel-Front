@@ -7,7 +7,7 @@ import ReservationPage from "./pages/ReservationPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import AdminConfirmationPage from "./pages/AdminConfirmationPage/AdminConfirmationPage";
-import { PrivateRoute, PublicRoute } from "./utils/ProtectedRoute.jsx";
+import { PublicRoute, JugadorRoute, AdminRoute } from "./utils/ProtectedRoute.jsx";
 
 export default function App() {
 
@@ -39,43 +39,43 @@ export default function App() {
         }
       />
 
-      {/* HOME */}
+      {/* HOME - Solo para jugadores */}
       <Route
         path="/home"
         element={
-          <PrivateRoute>
+          <JugadorRoute>
             <MainPage />
-          </PrivateRoute>
+          </JugadorRoute>
         }
       />
 
-      {/* CONFIRMACIONES ADMIN */}
+      {/* CONFIRMACIONES ADMIN - Solo para admins */}
       <Route
         path="/admin/confirmations"
         element={
-          <PrivateRoute>
+          <AdminRoute>
             <AdminConfirmationPage />
-          </PrivateRoute>
+          </AdminRoute>
         }
       />
 
-      {/* RESERVAS */}
+      {/* RESERVAS - Solo para jugadores */}
       <Route
         path="/reserva/:clubName/:canchaName"
         element={
-          <PrivateRoute>
+          <JugadorRoute>
             <ReservationPage />
-          </PrivateRoute>
+          </JugadorRoute>
         }
       />
 
-      {/* PERFIL */}
+      {/* PERFIL - Solo para jugadores */}
       <Route
         path="/profile"
         element={
-          <PrivateRoute>
+          <JugadorRoute>
             <ProfilePage />
-          </PrivateRoute>
+          </JugadorRoute>
         }
       />
 
