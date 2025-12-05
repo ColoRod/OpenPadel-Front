@@ -1,0 +1,52 @@
+@use "../../../assets/styles/variables.scss" as *;
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  .title {
+    font-size: 32px;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  
+  .form-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 350px;
+    gap: 15px;
+  }
+
+  .preview-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    img {
+      width: 120px;
+      height: 120px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 2px solid #ccc;
+    }
+
+    .remove-photo {
+      background: #c62828;
+      color: white;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .remove-photo:hover {
+      background: #b71c1c;
+    }
+  }
+}

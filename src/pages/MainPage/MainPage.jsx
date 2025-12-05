@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ClubList from "../../components/organisms/ClubList/ClubList";
-import MainLayout from '../../templates/MainLayout';
+import AppLayout from '../../templates/AppLayout';
 import "./MainPage.scss";
 import { useNavigate } from "react-router-dom";
 
@@ -111,7 +111,7 @@ const MainPage = () => {
   };
 
   return (
-    <MainLayout title="Principal">
+    <AppLayout title="Principal">
       <div className="main-page">
         <section className="reservas">
           <div className="reservas-lista">
@@ -146,7 +146,7 @@ const MainPage = () => {
           <ClubList onSelectClub={handleClubSelect} />
         </main>
       </div>
-    </MainLayout>
+    </AppLayout>
   );
 };
 

@@ -1,0 +1,18 @@
+@use "../../../assets/styles/variables.scss" as *;
+
+.input {
+  width: 100%;
+  max-width: 280px;
+  padding: 10px 12px;
+  border: 1px solid $color-body-gray; // 👈 igual que el password-input
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+  box-sizing: border-box;
+  height: 42px; // 👈 altura uniforme
+
+  &:focus {
+    border-color: $color-accent-lima;
+  }
+}

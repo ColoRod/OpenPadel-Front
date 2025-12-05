@@ -1,0 +1,43 @@
+@use "../../assets/styles/variables" as *;
+
+  .register-page {
+    min-height: 100vh;
+    height: 100vh;               // usar height + box-sizing para que el padding se incluya en el 100vh
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;   
+    justify-content: center;
+
+    background: linear-gradient(135deg, $color-accent-lima, $color-primary-green);
+
+    padding-top: 60px;         
+    padding-bottom: 60px;     
+
+    overflow-y: auto;    
+
+    .register-box {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      flex-direction: column;
+      width: 90%;
+      max-width: 420px;
+      margin-top: 30px; 
+      margin-bottom: 30px; 
+    }
+
+    img {
+        margin-bottom: -1rem; // menos espacio debajo del logo
+      }
+
+    .register-title {
+      font-family: 'Montserrat', sans-serif;
+      color: $color-background-blue;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: -0.5rem;
+    }
+  }

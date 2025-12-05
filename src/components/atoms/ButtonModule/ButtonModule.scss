@@ -1,0 +1,33 @@
+@use "../../../assets/styles/variables.scss" as *;
+@use "sass:color";
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 1rem;
+
+  &.primary {
+    background-color: $color-primary-green;
+    color: white;
+
+    &:hover {
+     background-color: color.adjust($color-primary-green, $lightness: -10%);
+    }
+  }
+
+  &.secondary {
+    background-color: transparent;
+    color: $color-background-blue;
+    text-decoration: underline;
+
+    &:hover {
+      color: $color-accent-lima;
+    }
+  }
+}
+

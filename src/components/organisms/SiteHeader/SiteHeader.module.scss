@@ -1,5 +1,5 @@
 /* src/components/organisms/SiteHeader.module.scss */
-@use '../../../styles/App.scss' as *;
+@use "../../../assets/styles/variables" as *;
 
 .header {
   display: flex;
@@ -8,7 +8,7 @@
   min-height: $grid-unit * 5;
   overflow: visible; //Permitir que los hijos sobresalgan
   position: relative; //Necesario para posicionar hijos de forma absoluta 
-  background-image: url('../../../../public/images/fondo-header.jpg');
+  background-image: url('/images/fondo-header.jpg');
   background-size: cover;      // La imagen cubrirá todo el espacio disponible
   background-position: center; // Centra la imagen
   background-repeat: no-repeat; // Evita que la imagen se repita
@@ -71,4 +71,79 @@
 
 .userStatus:hover .profileText {
     text-decoration: underline;
+}
+
+/* === USER MENU & DROPDOWN === */
+
+.userMenu {
+  position: absolute;
+  right: $grid-unit * 4;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+}
+
+.userTrigger {
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.userTrigger:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: rgba(15, 15, 15, 0.96);
+  backdrop-filter: blur(6px);
+  border-radius: 8px;
+  padding: 8px 0;
+  width: 160px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+
+  display: flex;
+  flex-direction: column;
+
+  animation: fadeIn 0.15s ease-out;
+}
+
+.dropdownItem {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: $grid-unit * 2;
+  font-family: "Montserrat", sans-serif;
+  color: $color-text-light;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dropdownItem:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.logout {
+  color: #ff5e5e;
+}
+
+.logout:hover {
+  background: rgba(255, 50, 50, 0.2);
+}
+
+/* Fade suave del menú */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

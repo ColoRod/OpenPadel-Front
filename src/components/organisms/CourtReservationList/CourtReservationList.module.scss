@@ -1,0 +1,52 @@
+/* src/components/organisms/CourtReservationList.module.scss */
+@use "../../../assets/styles/variables" as *;
+
+.courtList {
+  border: 1px solid $color-divider; // Borde gris
+  border-radius: $border-radius;
+  margin-bottom: $grid-unit * 2; // 16px
+  background-color: $color-text-light; // <-- FONDO BLANCO
+  transition: all 0.3s ease;
+  overflow: hidden; // Para que el borde redondeado se aplique al contenido
+}
+
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $grid-unit * 2 $grid-unit * 2.5; // 16px 20px
+  cursor: pointer;
+  user-select: none;
+  
+  &:hover {
+    background-color: $color-light-bg; // Fondo gris muy claro al pasar el mouse
+  }
+}
+
+.courtName {
+  font-size: $grid-unit * 2.5; // 20px
+  font-weight: 700;
+  color: $color-text-dark; // <-- COLOR TEXTO OSCURO
+}
+
+.arrowIcon {
+  font-size: $grid-unit * 1.5; // 12px
+  color: $color-text-dark;
+}
+
+.listContent {
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid $color-divider; // Borde gris
+}
+
+.noReservations {
+  padding: $grid-unit * 2;
+  text-align: center;
+  color: $color-text-dark;
+  opacity: 0.7;
+}
+
+.courtList.isOpen {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}

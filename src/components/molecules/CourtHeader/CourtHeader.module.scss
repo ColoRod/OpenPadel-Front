@@ -1,5 +1,5 @@
 /* src/components/molecules/CourtHeader.module.scss */
-@use '../../../styles/App.scss' as *;
+@use "../../../assets/styles/variables" as *;
 @use '../../atoms/Button/Button.module.scss' as button; // Para el estilo de navButton
 @use "sass:color";
 
@@ -34,7 +34,7 @@
   border-bottom: 2px solid transparent;
   transition: border-bottom 0.2s;
   &:hover {
-    background-color: lighten($color-accent-lima, 5%); 
+    background-color: color.adjust($color-accent-lima, $lightness: 5%);
     color: $color-text-dark;
     border-bottom: 2px solid $color-dark-bg;
   }

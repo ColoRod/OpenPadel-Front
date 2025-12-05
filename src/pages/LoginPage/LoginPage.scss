@@ -1,0 +1,51 @@
+@use "../../assets/styles/variables" as *;
+@use "sass:color";
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; // evita el scroll vertical
+}
+
+.login-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $color-accent-lima, $color-primary-green);
+
+  .login-box {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    // tamaño fijo para que no se reduzca
+    width: 350px;
+    min-width: 350px;
+    max-width: 380px;
+    flex-shrink: 0;
+
+    // 🔹 centrado interno 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem; // espacio entre los elementos
+
+    img {
+      margin-bottom: -2rem; // menos espacio debajo del logo
+    }
+
+     .login-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: $color-background-blue; 
+      margin-bottom: -1rem; // espacio entre el título y el logo
+    }
+  }
+}

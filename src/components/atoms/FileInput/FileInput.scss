@@ -1,0 +1,48 @@
+@use "../../../assets/styles/variables.scss" as *;
+
+.file-input {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    color: #034b59;
+  }
+}
+
+.file-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 2px solid $color-body-gray;
+  border-radius: 8px;
+  background: white;
+}
+
+input[type="file"] {
+  display: none;  
+}
+
+.file-btn {
+  background-color: $color-primary-green;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.file-name {
+  font-size: 0.9rem;
+  color: #555;
+}

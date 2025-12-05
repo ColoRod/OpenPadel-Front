@@ -1,7 +1,7 @@
 // src/pages/ReservationPage.jsx
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import MainLayout from '../templates/MainLayout';
+import AppLayout from '../templates/AppLayout';
 import ClubTitleBar from '../components/molecules/ClubTitleBar/ClubTitleBar'; 
 import ReservationPanel from '../components/organisms/ReservationPanel/ReservationPanel';
 
@@ -203,7 +203,7 @@ export default function ReservationPage() {
     // ----------------------------------------------------
 
     return (
-        <MainLayout title={'RESERVA'}> 
+        <AppLayout title={'RESERVA'}> 
             <ClubTitleBar clubName={clubName} /> 
 
             <ReservationPanel 
@@ -222,6 +222,6 @@ export default function ReservationPage() {
                 // Filtrar canchas por club seleccionado
                 filterClubName={clubName}
             />
-        </MainLayout>
+        </AppLayout>
     );
 }

@@ -4,7 +4,7 @@ import SiteHeader from '../components/organisms/SiteHeader/SiteHeader';
 
 // Este componente recibe las props de la lógica de negocio desde las páginas
 // onBack es opcional - if not provided, SiteHeader uses useNavigate(-1) for browser back
-export default function MainLayout( { children, onBack, title } ) {
+export default function AppLayout( { children, onBack, title } ) {
   return (
     <div>
       {/* Cabecera del sitio (organismo SiteHeader) */}

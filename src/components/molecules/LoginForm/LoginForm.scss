@@ -1,0 +1,17 @@
+@use "../../../assets/styles/variables.scss" as *;
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  gap: 15px;
+  width: 280px;
+}
+
+.dev-button {
+  margin-top: 10px;
+  background: transparent;
+  color: #034b59;
+  border: 1px dashed #034b59;
+}
+

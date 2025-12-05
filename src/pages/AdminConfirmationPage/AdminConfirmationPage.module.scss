@@ -1,0 +1,27 @@
+/* src/pages/AdminConfirmationPage.module.scss */
+@use "../../assets/styles/variables" as *;
+@use "sass:color";
+
+.adminPanel {
+  max-width: 900px;
+  margin: ($grid-unit * 4) auto; // 32px auto
+  padding: $grid-unit * 3; // 24px
+  background-color: transparent; // <-- TRANSPARENTE
+  border-radius: 12px;
+  // Quitamos la sombra, el layout principal ya tiene el fondo
+}
+
+.panelTitle {
+  font-size: $grid-unit * 3; // 24px
+  font-weight: 700;
+  color: $color-text-dark; // <-- COLOR TEXTO OSCURO
+  margin-bottom: $grid-unit * 3;
+  padding-bottom: $grid-unit * 2;
+  border-bottom: 2px solid $color-divider;
+}
+
+.listsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: $grid-unit * 2; // 16px
+}

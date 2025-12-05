@@ -1,0 +1,178 @@
+.profile-container {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 10px;
+  text-align: center;
+}
+
+.profile-header-inline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 50px;
+  margin-top: 20px;
+}
+
+.profile-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #00bf63;
+  cursor: pointer;
+}
+
+.profile-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #034b59;
+}
+
+.section-title {
+  width: 80%;
+  margin: 25px auto;
+  text-align: left;
+  font-size: 32px;
+  font-weight: 800;
+  color: #000000;
+}
+
+.edit-icon-name {
+      cursor: pointer;
+      font-size: 35px;
+      margin-left: 5px;
+    }
+
+ .btn-save {
+      background: #00bf63;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 600;
+}
+
+     .input-display {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+
+    .input-disabled {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #dcdcdc;
+      border-radius: 10px;
+      font-size: 16px;
+      background: #f7f7f7;
+      color: #333;
+    }
+
+    .edit-icon {
+      cursor: pointer;
+      font-size: 26px;
+      margin-left: 5px;
+    }
+  }
+
+   .edit-wrapper {
+    display: flex;
+    gap: 10px;
+
+    .input-edit {
+      flex: 1;
+      padding: 12px 15px;
+      border-radius: 10px;
+      border: 1px solid #aaa;
+      font-size: 19px;
+    }
+  }
+
+/* ========================= */
+/*       CAMPOS DATOS        */
+/* ========================= */
+
+.profile-field {
+  width: 80%;
+  margin: 18px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+
+  label {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+  }
+}
+
+.edit-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.password-input-container {
+  position: relative;
+  flex: 1;        /* 👈 Esto hace que no se achique */
+}
+
+.password-input-container .input-edit {
+  width: 85%;    /* 👈 Ocupa todo el espacio disponible */
+  padding-right: 45px;
+}
+
+.dni-input{
+  width: 90%;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 22px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.toggle-password:hover {
+  opacity: 0.5;
+}
+
+.select-custom {
+  width: 90%;
+  padding: 12px 15px;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  background: #f7f7f7;
+  color: #333;
+  font-size: 16px;
+  appearance: none; /* quita el estilo nativo */
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23034b59' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 18px;
+}
+
+.select-custom:focus {
+  outline: none;
+  border-color: #00bf63;
+  background-color: #fff;
+}
+
+html, body {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.profile-container {
+  min-height: 100vh;
+}

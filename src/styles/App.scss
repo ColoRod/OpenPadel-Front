@@ -1,5 +1,5 @@
 /* src/styles/App.scss */
-@import "../assets/styles/variables";
+@use "../assets/styles/variables" as *;
 
 // Reset básico
 * { box-sizing: border-box; }
