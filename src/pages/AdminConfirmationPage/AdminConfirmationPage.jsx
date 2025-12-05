@@ -34,14 +34,17 @@ const AdminConfirmationPage = () => {
   // --- 2. FUNCIÓN PARA OBTENER DATOS (GET) ---
   const fetchReservations = async () => {
     try {
-      // Usamos la ruta administrativa: '/api/reservas/admin'
-      // Incluimos el token en Authorization si existe
+      // Usamos la ruta administrativa. En producción `VITE_API_URL` debe
+      // contener la URL completa del backend (ej: https://mi-backend.up.railway.app)
+      // En desarrollo, si `VITE_API_URL` está vacío, se usan rutas relativas para el proxy de Vite.
+      const API_BASE = import.meta.env.VITE_API_URL || '';
       const token = localStorage.getItem('token');
       console.log("📋 AdminConfirmationPage - Token desde localStorage:", token ? "✓ Presente" : "✗ No presente");
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
-      console.log("📋 AdminConfirmationPage - Haciendo fetch a /api/reservas/admin");
-      const response = await fetch('/api/reservas/admin', { headers });
+      const fetchUrl = `${API_BASE}/api/reservas/admin`;
+      console.log("📋 AdminConfirmationPage - Haciendo fetch a", fetchUrl);
+      const response = await fetch(fetchUrl, { headers });
 
       console.log("📋 AdminConfirmationPage - Response status:", response.status);
 
@@ -74,7 +77,7 @@ const AdminConfirmationPage = () => {
     console.log(`Procesando acción: ${action} en reserva ${reservationId}`);
     
     // URL base relativa (admin)
-    const API_URL = '/api/reservas/admin'; 
+    const API_URL = (import.meta.env.VITE_API_URL || '') + '/api/reservas/admin'; 
     const token = localStorage.getItem('token');
     const headers = {
       'Content-Type': 'application/json',
