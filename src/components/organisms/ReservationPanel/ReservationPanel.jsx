@@ -121,14 +121,27 @@ export default function ReservationPanel({
                             <div className={styles.loadingSlots}>Cargando horarios...</div>
                         ) : timeSlots && timeSlots.length > 0 ? (
                             // 2. Mostrar la lista si no está cargando y hay datos
-                            timeSlots.map(slot => (
-                                <TimeSlot 
-                                    key={slot.time}
-                                    time={slot.time}
-                                    status={slot.status}
-                                    onReserve={() => onReserve(slot.time)} 
-                                />
-                            ))
+                            timeSlots.map(slot => {
+                                const now = new Date();
+                                const isToday = selectedDate.toDateString() === now.toDateString();
+                                let isPast = false;
+                                if (isToday) {
+                                    const [startStr] = slot.time.split(' - ');
+                                    const [h, m] = startStr.split(':').map(Number);
+                                    const slotStart = new Date(selectedDate);
+                                    slotStart.setHours(h, m, 0, 0);
+                                    isPast = slotStart < now;
+                                }
+                                const effectiveStatus = isPast ? 'past' : slot.status;
+                                return (
+                                    <TimeSlot 
+                                        key={slot.time}
+                                        time={slot.time}
+                                        status={effectiveStatus}
+                                        onReserve={() => onReserve(slot.time)} 
+                                    />
+                                );
+                            })
                         ) : (
                             // 3. Mostrar mensaje de vacío si no hay datos y no está cargando
                             <p className={styles.noSlots}>No hay horarios disponibles para esta fecha.</p>

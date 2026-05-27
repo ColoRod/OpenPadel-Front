@@ -8,8 +8,10 @@ export default function TimeSlot({ time, status, onReserve }) {
 
   let buttonText;
   let buttonVariant;
-
-  if (status === 'available') {
+  if (status === 'past') {
+    buttonText = 'Hora pasada';
+    buttonVariant = 'past';
+  } else if (status === 'available') {
     buttonText = 'Reservar';
     buttonVariant = 'primary';
   } else if (status === 'pending') {
@@ -24,7 +26,7 @@ export default function TimeSlot({ time, status, onReserve }) {
   const isClickable = status === 'available';
 
   return (
-    <div className={styles.timeSlot}>
+    <div className={`${styles.timeSlot} ${status === 'past' ? styles.timeSlotPast : ''}`}>
       
       {/* 1. Indicador de Estado (StatusDot) */}
       <StatusDot status={status} />

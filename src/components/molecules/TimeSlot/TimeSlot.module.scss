@@ -38,3 +38,7 @@
   width: 140px; /* Ancho fijo para todos los botones de reserva */
   flex-shrink: 0;
 }
+.timeSlotPast {
+  opacity: 0.5;
+  pointer-events: none;
+}
