@@ -203,7 +203,8 @@ export default function ReservationPage() {
                 fetchTimeSlots(activeCanchaId, selectedDate);
             } else {
                 console.error('Reserva failed response:', response.status, result);
-                alert(`Error al reservar:${result.message || 'El turno ya no está disponible.'}`);
+                const mensaje = result.message || 'El turno ya no está disponible.';
+                alert(`Error al reservar: ${mensaje}`);
             }
 
         } catch (error) {
