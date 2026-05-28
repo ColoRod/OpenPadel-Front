@@ -2,19 +2,8 @@
 @use "sass:color";
 
 .main-page {
-  background-color: $color-body-gray;
-  min-height: 100vh;
-
-  .subheader {
-    padding: 1rem 2rem;
-    background-color: color.adjust($color-verde-padel, $lightness: 25%);
-    h2 {
-      margin: 0;
-      font-weight: 500;
-    }
-  }
-
   .content {
+    background: linear-gradient(135deg, #bfff00 0%, #10b981 100%);
     text-align: center;
     padding: 2rem;
 
@@ -22,6 +11,15 @@
       margin-bottom: 2rem;
       font-weight: 700;
       font-size: 2rem;
+    }
+  }
+
+  .subheader {
+    padding: 1rem 2rem;
+    background-color: color.adjust($color-verde-padel, $lightness: 25%);
+    h2 {
+      margin: 0;
+      font-weight: 500;
     }
   }
 }

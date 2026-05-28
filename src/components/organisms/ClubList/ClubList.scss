@@ -3,12 +3,13 @@
 .club-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  column-gap: 1.5rem;
+  row-gap: 8rem;
   margin-top: 2rem;
 
   .club-card {
     aspect-ratio: unset;
-    height: 260px;
+    height: 450px;
   }
 }
 

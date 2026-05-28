@@ -1,144 +1,183 @@
 @use "../../../assets/styles/variables" as *;
 @use "sass:color";
 
-/* ======================================
-   📦 NUEVA TARJETA CLUB (versión horizontal)
-====================================== */
-.club-card-horizontal {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  background-color: $color-tarjeta;
+/* ── Tarjeta base ── */
+.club-card {
+  position: relative;
   border-radius: 16px;
-  box-shadow: 0 2px 6px $color-sombra;
-  padding: 1.5rem;
-  width: 90%;
-  max-width: 800px;
-  margin: 1rem auto;
-  transition: transform 0.2s ease;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 3 / 4;       // proporción tipo póster, ajustá si querés más ancha
+  background-color: #1a1a1a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  max-width: 480px;  
+  margin: 0 auto;    
+  width: 100%;       
 
-  &:hover {
-    transform: scale(1.03);
+  // El overlay se anima desde abajo
+  &:hover .club-card__overlay,
+  &:focus .club-card__overlay {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  /* 🖼️ Imagen del club */
-  .club-image {
-    width: 40%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 12px;
-    margin-left: 10px; // separa la imagen del borde izquierdo
+  // Cuando hay hover, oscurecer un poco la imagen
+  &:hover .club-card__image,
+  &:focus .club-card__image {
+    transform: scale(1.05);
+    filter: brightness(0.55);
   }
 
-  /* ℹ️ Contenedor de información */
-  .club-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
-    color: $color-texto;
-
-    .club-name {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 0.8rem;
-      color: $color-texto;
-    }
-
-    /* 🗺️ Cuadro de ubicación */
-    .club-box {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      background-color: color.adjust($color-tarjeta, $lightness: 10%);
-      border-radius: 10px;
-      padding: 0.6rem 1rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      img {
-      width: $grid-unit * 8 !important;
-      height: $grid-unit * 8 !important;
-      flex-shrink: 0; /* EVITA QUE LA IMAGEN SE ENCOJA EN FLEXBOX */
-      object-fit: cover;
-      }
-      /*.icon {
-        font-size: 1rem;
-      }*/
-
-      p {
-        margin: 0;
-        font-size: 1.2rem;
-        color: color.adjust($color-texto, $lightness: 5%);
-      }
-    }
-
-    /* ⚙️ Bloque de servicios */
-    .club-services {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-
-      .service {
-        background-color: color.adjust($color-tarjeta, $lightness: 8%);
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-size: 1rem;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-        
-        img {
-        width: $grid-unit * 8 !important;
-        height: $grid-unit * 8 !important;
-        flex-shrink: 0; /* EVITA QUE LA IMAGEN SE ENCOJA EN FLEXBOX */
-        object-fit: cover;
-        }
-        /*.icon {
-          font-size: 1.2rem;
-        }*/
-      }
-    }
+  // Ocultar nombre-bar al hacer hover (el overlay ya lo muestra)
+  &:hover .club-card__name-bar,
+  &:focus .club-card__name-bar {
+    opacity: 0;
   }
 }
 
-/* ======================================
-   💬 DISEÑO ANTERIOR (comentado)
-   Se conserva por referencia del equipo
-====================================== */
-/*
-.club-card {
-  background-color: $color-tarjeta;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px $color-sombra;
-  padding: 1rem;
-  text-align: center;
-  transition: transform 0.2s ease;
+/* ── Imagen de fondo ── */
+.club-card__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
 
-  img {
-    width: 80%;
-    height: 280px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin: 0 auto;
-    display: block;
+/* ── Gradiente inferior fijo ── */
+.club-card__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.2) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ── Nombre siempre visible (estado reposo) ── */
+.club-card__name-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.2rem 1.4rem;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+
+  .club-card__name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 0.3rem;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
   }
 
-  p {
-    margin: 0.8rem auto 0;
-    font-weight: 700;
-    color: $color-texto;
-    width: 50%;
-    text-align: center;
-    font-size: 1.8rem;
-    min-height: 50px;
+  .club-card__address {
     display: flex;
     align-items: center;
-    justify-content: center;
-  }
-
-  &:hover {
-    transform: scale(1.03);
+    gap: 0.4rem;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.78rem;
+    margin: 0;
   }
 }
-*/
+
+/* ── Overlay hover ── */
+.club-card__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.6rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.55) 60%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+
+  .club-card__overlay-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 0.5rem;
+  }
+}
+
+/* ── Fila de detalle (dirección / teléfono) ── */
+.club-card__detail {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+}
+
+/* ── Tags de características ── */
+.club-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.4rem 0 0.7rem;
+}
+
+.club-card__tag {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 0.2rem 0.6rem;
+  color: white;
+  font-size: 0.8rem;
+  backdrop-filter: blur(4px);
+}
+
+/* ── Botón Ver Canchas ── */
+.club-card__btn {
+  display: block;
+  width: 100%;
+  padding: 1.1rem;
+  background-color: $color-primary-green;   // tu verde
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s ease;
+  margin-top: 0.5rem;            // ← separación extra del contenido
+
+  &:hover {
+    background-color: color.adjust($color-primary-green, $lightness: -8%);
+  }
+}
+
+/* ── Íconos pequeños ── */
+.club-card__icon-sm {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: brightness(10);   // los SVG negros → blancos
+}
+
+.club-card__icon-xs {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: brightness(10);
+}

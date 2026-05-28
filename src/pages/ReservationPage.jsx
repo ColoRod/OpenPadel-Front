@@ -220,25 +220,21 @@
         // ----------------------------------------------------
 
         return (
-            <AppLayout title={'RESERVA'}> 
-                <ClubTitleBar clubName={clubName} /> 
+            <AppLayout title={'RESERVA'}>
+                <div style={{ background: 'linear-gradient(135deg, #bfff00 0%, #10b981 100%)', minHeight: '100%' }}>
+                    <ClubTitleBar clubName={clubName} />
 
-                <ReservationPanel 
-                    // Nueva prop para que el Panel notifique su cancha activa
-                    onCanchaChange={handleCanchaChange} 
-                    
-                    // Props de Fechas/Horarios
-                    calendarDates={calendarDates}
-                    selectedDate={selectedDate}
-                    onSelectDate={handleSelectDate}
-                    
-                    // Slots y estado de carga
-                    timeSlots={timeSlots}
-                    isTimeSlotLoading={isTimeSlotLoading}
-                    onReserve={handleReserve}
-                    // Filtrar canchas por club seleccionado
-                    filterClubName={clubName}
-                />
+                    <ReservationPanel
+                        onCanchaChange={handleCanchaChange}
+                        calendarDates={calendarDates}
+                        selectedDate={selectedDate}
+                        onSelectDate={handleSelectDate}
+                        timeSlots={timeSlots}
+                        isTimeSlotLoading={isTimeSlotLoading}
+                        onReserve={handleReserve}
+                        filterClubName={clubName}
+                    />
+                </div>
             </AppLayout>
         );
     }
