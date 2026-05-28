@@ -25,10 +25,10 @@
     }
   }
 }
+
 .reservas {
   padding: 1.5rem 2rem;
   background-color: $color-verde-padel;
-  
 
   h2 {
     margin-bottom: 1rem;
@@ -40,60 +40,156 @@
     flex-direction: column;
     gap: 0.8rem;
   }
+}
 
-  .reserva-card {
-    background-color: $color-tarjeta;
-    border-radius: 10px;
-    padding: 1rem;
-    box-shadow: 0 2px 5px $color-sombra;
-    font-size: 0.95rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2.4rem;
-    min-height: 100px;
+.reservas-container {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
 
-    .reserva-info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+.club-divider {
+  border: none;
+  border-top: 2px solid #e0e0e0;
+  margin: 10px 0;
+}
 
-      p {
-        margin: 0.3rem 0;
-      }
-    }
+.club-grupo-titulo {
+  font-weight: 700;
+  font-size: 14px;
+  color: #222;
+  margin: 6px 0 4px 0;
+}
 
-    .btn-cancelar {
-      background-color: #FF3131;
-      color: white;
-      border: none;
-      padding: 1rem 0.8rem;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.75rem;
-      cursor: pointer;
-      white-space: normal;
-      word-break: break-word;
-      line-height: 1.2;
-      min-width: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      transition: all 0.3s ease;
-      height: 75px;
-      flex-shrink: 0;
+.reserva-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 8px;
 
-      &:hover {
-        background-color: #d62b2b;
-        box-shadow: 0 4px 12px rgba(255, 49, 49, 0.4);
-        transform: translateY(-2px);
-      }
+  &:last-child { border-bottom: none; }
+}
 
-      &:active {
-        transform: translateY(0);
-      }
-    }
-  }
+.reserva-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #444;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.reserva-cancha { font-size: 13px; color: #333; }
+.reserva-fecha  { color: #555; }
+.reserva-precio { color: #333; white-space: nowrap; }
+
+.reserva-acciones {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.badge {
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+
+  &-confirmada { background: #2e7d32; }
+  &-pendiente  { background: #f59e0b; color: #333; }
+}
+
+.info-wrapper { position: relative; display: inline-block; }
+
+.btn-info {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  font-size: 11px;
+  cursor: pointer;
+  line-height: 1;
+
+  &:hover { background: #1565c0; }
+}
+
+.tooltip-pago {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 100;
+  min-width: 200px;
+  font-size: 12px;
+  color: #333;
+
+  p { margin: 2px 0; }
+}
+
+.btn-clip {
+  background: none;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  &:hover { opacity: 0.7; }
+}
+
+.senia-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+
+  &.pagada         { background: #2e7d32; }
+  &.pendiente-pago { background: #d32f2f; }
+}
+
+.btn-cancelar {
+  background: #d32f2f;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  &:hover { background: #b71c1c; }
+}
+
+.historial-link {
+  margin-top: 12px;
+  text-align: right;
+}
+
+.btn-historial {
+  background: none;
+  border: none;
+  color: #1976d2;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 500;
+  &:hover { text-decoration: underline; }
 }
