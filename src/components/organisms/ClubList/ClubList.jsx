@@ -1,35 +1,33 @@
 import { useEffect, useState } from "react";
 import ClubCard from "../../molecules/ClubCard/ClubCard";
 import "./ClubList.scss";
+import { Wifi, Car, Coffee, Wind } from 'lucide-react';
 
+const CARACTERISTICAS_FILTRO = [
+  { nombre: 'WiFi',          icon: <Wifi size={14} /> },
+  { nombre: 'Estacionamiento', icon: <Car size={14} /> },
+  { nombre: 'Buffet',        icon: <Coffee size={14} /> },
+  { nombre: 'Climatización', icon: <Wind size={14} /> },
+];
 const ClubList = ({ onSelectClub }) => {
-  // Estado para guardar los clubes que vienen de la API
   const [clubes, setClubes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [busqueda, setBusqueda] = useState('');
+  const [filtrosActivos, setFiltrosActivos] = useState([]);
   const API_BASE = import.meta.env.VITE_API_URL || '';
 
-  // Llamada a la API al montar el componente
   useEffect(() => {
     const fetchClubes = async () => {
       try {
-        const API_BASE = import.meta.env.VITE_API_URL || '';
         const url = `${API_BASE}/api/clubes`;
-        console.log(`[ClubList] Fetching from: ${url}`);
         const res = await fetch(url);
         const data = await res.json();
-        console.log('[ClubList] Raw response:', data);
 
-        // Manejar distintos formatos de respuesta (array directo o { message, data })
         let clubesList = [];
         if (Array.isArray(data)) clubesList = data;
         else if (data && Array.isArray(data.data)) clubesList = data.data;
         else if (data && Array.isArray(data.clubes)) clubesList = data.clubes;
-        else {
-          // fallback: si es objeto con keys, intentar convertir a array
-          clubesList = Array.isArray(data) ? data : [];
-        }
 
-        console.log('[ClubList] Parsed clubes:', clubesList);
         setClubes(clubesList);
       } catch (error) {
         console.error("Error cargando clubes:", error);
@@ -41,33 +39,76 @@ const ClubList = ({ onSelectClub }) => {
     fetchClubes();
   }, []);
 
-  // Mientras carga
-  if (loading) {
-    return <p>Cargando clubes...</p>;
-  }
+  const toggleFiltro = (caract) => {
+    setFiltrosActivos(prev =>
+      prev.includes(caract)
+        ? prev.filter(f => f !== caract)
+        : [...prev, caract]
+    );
+  };
 
-  // Si no hay clubes
-  if (!clubes || clubes.length === 0) {
-    return <p>No se encontraron clubes.</p>;
-  }
+  const clubesFiltrados = clubes.filter(club => {
+    const nombreMatch = club.nombre
+      ?.toLowerCase()
+      .includes(busqueda.toLowerCase());
+
+    const caractMatch = filtrosActivos.every(f =>
+      club.caracteristicas?.includes(f)
+    );
+
+    return nombreMatch && caractMatch;
+  });
+
+  if (loading) return <p>Cargando clubes...</p>;
+  if (!clubes || clubes.length === 0) return <p>No se encontraron clubes.</p>;
 
   return (
-    <div className="club-list">
-      {clubes.map((club) => (
-        <ClubCard
-          key={club.club_id}
-          clubId={club.club_id}
-          name={club.nombre}
-          image={club.imagen_url ? `${API_BASE}${club.imagen_url}` : null}
-          direccion={club.direccion}
-          telefono={club.telefono}
-          caracteristicas={club.caracteristicas}
-          onClick={(id, nombre) => {
-            console.log('[ClubList] Club clicked:', id, nombre);
-            onSelectClub && onSelectClub(id, nombre);
-          }}
-        />
-      ))}
+    <div className="club-list-wrapper">
+
+      {/* Barra de filtros */}
+      <div className="filter-bar">
+        <div className="filter-search">
+          <span className="search-icon">🔍</span>
+          <input
+            type="text"
+            placeholder="Buscar club..."
+            value={busqueda}
+            onChange={e => setBusqueda(e.target.value)}
+          />
+        </div>
+
+        <div className="filter-tags">
+          {CARACTERISTICAS_FILTRO.map(({ nombre, icon }) => (
+            <button
+              key={nombre}
+              className={`filter-tag ${filtrosActivos.includes(nombre) ? 'active' : ''}`}
+              onClick={() => toggleFiltro(nombre)}
+            >
+              {icon} {nombre}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Lista de clubes */}
+      {clubesFiltrados.length === 0 ? (
+        <p className="no-results">No hay clubes que coincidan con los filtros.</p>
+      ) : (
+        <div className="club-list">
+          {clubesFiltrados.map((club) => (
+            <ClubCard
+              key={club.club_id}
+              clubId={club.club_id}
+              name={club.nombre}
+              image={club.imagen_url ? `${API_BASE}${club.imagen_url}` : null}
+              direccion={club.direccion}
+              telefono={club.telefono}
+              caracteristicas={club.caracteristicas}
+              onClick={(id, nombre) => onSelectClub && onSelectClub(id, nombre)}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
