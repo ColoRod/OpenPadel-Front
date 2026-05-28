@@ -1,46 +1,160 @@
-/* src/components/molecules/DateSelector.module.scss */
+/* src/components/molecules/DateSelector/DateSelector.module.scss */
 @use "../../../assets/styles/variables" as *;
-@use '../../atoms/Button/Button.module.scss' as button;
 
 .selectorContainer {
   display: flex;
   align-items: center;
-  background-color: $color-background-blue; /* Fondo oscuro principal para esta sección */
+  background-color: $color-background-blue;
   padding: $grid-unit;
+  position: relative; // necesario para el dropdown
 }
 
+/* ── Lista horizontal (sin cambios visuales) ── */
 .dateList {
   display: flex;
-  overflow-x: scroll; /* Permite el desplazamiento horizontal */
-  gap: $grid-unit; /* 8px de separación entre cada DateNumber */
-  
-  // Truco para ocultar la barra de desplazamiento en navegadores
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+  overflow-x: scroll;
+  gap: $grid-unit;
+  flex: 1;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+/* ── Wrapper del botón + y el dropdown ── */
+.calendarWrapper {
+  position: relative;
+  flex-shrink: 0;
+  margin-left: $grid-unit;
+}
+
+/* ── Botón + ── */
+.addButton {
+  width: $grid-unit * 5;      // 40px
+  height: $grid-unit * 5;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background-color: transparent;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, border-color 0.2s;
+  line-height: 1;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: white;
   }
 }
 
-.navButton {
-  // 2. CORRECCIÓN: @extend debe ser lo primero. Usar la sintaxis con alias.
-  @include button.button-base;
-  
-  // 3. Propiedades CSS (todas terminan en ;)
-  width: $grid-unit * 4; /* 32px de ancho */
-  height: $grid-unit * 4; /* 32px de altura */
-  background-color: transparent;
-  color: $color-text-light;
-  border-color: transparent;
-  flex-shrink: 0; // Asegúrate de que las propiedades terminan en ;
-  
-  // 4. CORRECCIÓN DE SINTAXIS: Los anidados deben empezar sin el ampersand (&)
-  // ya que no estás modificando la clase .navButton, sino anidando selectores estándar.
+.addButtonActive {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: white;
+  font-size: 1rem; // ✕ un poco más chico
+}
 
-  &:first-child {
-    margin-right: $grid-unit;
+/* ── Dropdown del calendario ── */
+.calendarDropdown {
+  position: absolute;
+  top: calc(100% + #{$grid-unit});
+  right: 0;
+  z-index: 100;
+  background-color: $color-background-blue;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: $grid-unit;
+  padding: $grid-unit * 2;
+  width: 280px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Cabecera: < Mayo 2026 > ── */
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $grid-unit * 2;
+}
+
+.monthTitle {
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: capitalize;
+}
+
+.monthNavBtn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 0 $grid-unit;
+  line-height: 1;
+  opacity: 0.8;
+  transition: opacity 0.15s;
+
+  &:hover:not(:disabled) { opacity: 1; }
+  &:disabled { opacity: 0.25; cursor: default; }
+}
+
+/* ── Etiquetas DOM LUN MAR... ── */
+.weekLabels {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: $grid-unit;
+}
+
+.weekLabel {
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+/* ── Grilla de días ── */
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calendarDay {
+  aspect-ratio: 1;
+  background: transparent;
+  border: none;
+  border-radius: $grid-unit * 0.75;
+  color: white;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.15);
   }
-  &:last-child {
-    margin-left: $grid-unit;
-  }
+}
+
+.calendarDayPast {
+  color: rgba(255, 255, 255, 0.25);
+  cursor: default;
+}
+
+// Hoy: borde verde suave
+.calendarDayToday {
+  border: 1.5px solid $color-primary-green; // tu verde
+  font-weight: 600;
+}
+
+// Día seleccionado: fondo verde
+.calendarDaySelected {
+  background-color: $color-primary-green !important;
+  color: white;
+  font-weight: 700;
 }
