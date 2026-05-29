@@ -1,4 +1,4 @@
-/* src/components/organisms/SiteHeader.module.scss */
+/* src/components/organisms/SiteHeader/SiteHeader.module.scss */
 @use "../../../assets/styles/variables" as *;
 
 .header {
@@ -6,37 +6,36 @@
   align-items: center;
   padding: 0 $grid-unit * 4;
   min-height: $grid-unit * 5;
-  overflow: visible; //Permitir que los hijos sobresalgan
-  position: relative; //Necesario para posicionar hijos de forma absoluta 
+  overflow: visible;
+  position: relative;
   background-image: url('/images/fondo-header.jpg');
-  background-size: cover;      // La imagen cubrirá todo el espacio disponible
-  background-position: center; // Centra la imagen
-  background-repeat: no-repeat; // Evita que la imagen se repita
-  
-  //Una sombra sutil
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-.logoWrapper {
-  position: absolute; //Sacamos el logo del flujo normal de Flexbox
-  left: $grid-unit * 1.5; // Lo alineamos con el padding izquierdo
-  top: 50%; // Lo posicionamos al 50% vertical 
-  transform: translateY(-50%); // Lo centramos verticalmente 
-  z-index: 10; // Aseguramos que esté sobre la imagen de fondo
 
-  /* Efecto visual para el logo/back button */
+.logoWrapper {
+  position: absolute;
+  left: $grid-unit * 1.5;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
   cursor: pointer;
   transition: transform 150ms cubic-bezier(.2,.8,.2,1), box-shadow 150ms;
 }
+
 .logoWrapper:focus,
 .logoWrapper:hover {
   transform: translateY(-50%) scale(1.06);
   box-shadow: 0 6px 12px rgba(0,0,0,0.18);
 }
+
 .logoWrapper:active {
   transform: translateY(-50%) scale(0.98);
 }
+
 .pageTitle {
-  // RESERVA
   font-size: $grid-unit * 4;
   font-weight: 700;
   color: $color-accent-lima;
@@ -48,39 +47,15 @@
   z-index: 10;
   flex-grow: 0;
 }
-.userStatus {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  right: $grid-unit * 4; /*Distancia del borde derecho (32px) */
-  top: 50%; /* 50% desde arriba */
-  transform: translateY(-50%); /* Centra verticalmente */
-  z-index: 10;
-}
 
 .profileText {
-  /*Estilo para el texto "PERFIL" */
   font-family: 'Montserrat', sans-serif;
   text-decoration: none;
-  font-size: $grid-unit * 2.1; /* 16px */
+  font-size: $grid-unit * 2.1;
   font-weight: 500;
   text-transform: uppercase;
   color: $color-text-light;
   cursor: pointer;
-}
-
-.userStatus:hover .profileText {
-    text-decoration: underline;
-}
-
-/* === USER MENU & DROPDOWN === */
-
-.userMenu {
-  position: absolute;
-  right: $grid-unit * 4;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 20;
 }
 
 .userTrigger {
@@ -104,10 +79,8 @@
   padding: 8px 0;
   width: 160px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-
   display: flex;
   flex-direction: column;
-
   animation: fadeIn 0.15s ease-out;
 }
 
@@ -136,7 +109,6 @@
   background: rgba(255, 50, 50, 0.2);
 }
 
-/* Fade suave del menú */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -146,4 +118,118 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+// Zona derecha
+.rightZone {
+  position: absolute;
+  right: $grid-unit * 4;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: $grid-unit * 2;
+}
+
+.userMenu {
+  position: relative;
+  right: unset;
+  top: unset;
+  transform: unset;
+  z-index: 20;
+}
+
+.campanaWrapper {
+  position: relative;
+}
+
+.campanaBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  &:hover { opacity: 0.8; }
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ff3131;
+  color: #fff;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.campanaDropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: rgba(15, 15, 15, 0.96);
+  backdrop-filter: blur(6px);
+  border-radius: 8px;
+  padding: 8px 0;
+  width: 280px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  animation: fadeIn 0.15s ease-out;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.campanaHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 14px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.campanaTitulo {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.limpiarBtn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 11px;
+  cursor: pointer;
+  &:hover { color: #fff; }
+}
+
+.campanaVacia {
+  color: #aaa;
+  font-size: 13px;
+  padding: 12px 14px;
+  margin: 0;
+}
+
+.campanaItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: $color-text-light;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+
+  &:last-child { border-bottom: none; }
+  &.confirmada   { border-left: 3px solid #2e7d32; }
+  &.rechazada    { border-left: 3px solid #d32f2f; }
+  &.cancelada    { border-left: 3px solid #d32f2f; }
+  &.recordatorio { border-left: 3px solid #f59e0b; }
 }
