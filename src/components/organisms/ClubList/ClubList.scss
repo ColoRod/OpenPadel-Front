@@ -87,3 +87,24 @@
   margin-top: 1rem;
   font-size: 14px;
 }
+
+// Separador entre filtros de club y cancha
+.filter-divider {
+  color: #ccc;
+  font-size: 18px;
+  align-self: center;
+  margin: 0 0.25rem;
+}
+
+// Filtros de cancha activos en azul para diferenciarlos
+.filter-tag--cancha {
+  &.active {
+    background: #1565c0;
+    border-color: #1565c0;
+    color: #fff;
+
+    .filter-tag__icon {
+      filter: brightness(10); // SVG negro → blanco cuando está activo
+    }
+  }
+}

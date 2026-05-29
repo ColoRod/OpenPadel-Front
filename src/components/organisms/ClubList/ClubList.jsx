@@ -3,24 +3,37 @@ import ClubCard from "../../molecules/ClubCard/ClubCard";
 import "./ClubList.scss";
 import { Wifi, Car, Coffee, Wind } from 'lucide-react';
 
-const CARACTERISTICAS_FILTRO = [
-  { nombre: 'WiFi',          icon: <Wifi size={14} /> },
+// Características del CLUB (lucide icons)
+const CARACTERISTICAS_FILTRO_CLUB = [
+  { nombre: 'WiFi',            icon: <Wifi size={14} /> },
   { nombre: 'Estacionamiento', icon: <Car size={14} /> },
-  { nombre: 'Buffet',        icon: <Coffee size={14} /> },
-  { nombre: 'Climatización', icon: <Wind size={14} /> },
+  { nombre: 'Buffet',          icon: <Coffee size={14} /> },
+  { nombre: 'Climatización',   icon: <Wind size={14} /> },
 ];
+
+// Características de CANCHA (iconos SVG del public)
+const CARACTERISTICAS_FILTRO_CANCHA = [
+  { nombre: 'Sintético' },
+  { nombre: 'No Sintético' },
+  { nombre: 'Techada' },
+  { nombre: 'No Techada' },
+  { nombre: 'Cemento' },
+  { nombre: 'Blindex' },
+];
+
 const ClubList = ({ onSelectClub }) => {
   const [clubes, setClubes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [busqueda, setBusqueda] = useState('');
-  const [filtrosActivos, setFiltrosActivos] = useState([]);
+  const [filtrosClub, setFiltrosClub] = useState([]);
+  const [filtrosCancha, setFiltrosCancha] = useState([]);
   const API_BASE = import.meta.env.VITE_API_URL || '';
 
   useEffect(() => {
     const fetchClubes = async () => {
       try {
         const url = `${API_BASE}/api/clubes`;
-        const res = await fetch(url);
+        const res = await fetch(url, { cache: 'no-store' });
         const data = await res.json();
 
         let clubesList = [];
@@ -35,28 +48,26 @@ const ClubList = ({ onSelectClub }) => {
         setLoading(false);
       }
     };
-
     fetchClubes();
   }, []);
 
-  const toggleFiltro = (caract) => {
-    setFiltrosActivos(prev =>
-      prev.includes(caract)
-        ? prev.filter(f => f !== caract)
-        : [...prev, caract]
+  const toggleFiltroClub = (nombre) => {
+    setFiltrosClub(prev =>
+      prev.includes(nombre) ? prev.filter(f => f !== nombre) : [...prev, nombre]
+    );
+  };
+
+  const toggleFiltroCancha = (nombre) => {
+    setFiltrosCancha(prev =>
+      prev.includes(nombre) ? prev.filter(f => f !== nombre) : [...prev, nombre]
     );
   };
 
   const clubesFiltrados = clubes.filter(club => {
-    const nombreMatch = club.nombre
-      ?.toLowerCase()
-      .includes(busqueda.toLowerCase());
-
-    const caractMatch = filtrosActivos.every(f =>
-      club.caracteristicas?.includes(f)
-    );
-
-    return nombreMatch && caractMatch;
+    const nombreMatch = club.nombre?.toLowerCase().includes(busqueda.toLowerCase());
+    const caractClubMatch = filtrosClub.every(f => club.caracteristicas?.includes(f));
+    const caractCanchaMatch = filtrosCancha.every(f => club.caracteristicas_canchas?.includes(f));
+    return nombreMatch && caractClubMatch && caractCanchaMatch;
   });
 
   if (loading) return <p>Cargando clubes...</p>;
@@ -64,9 +75,9 @@ const ClubList = ({ onSelectClub }) => {
 
   return (
     <div className="club-list-wrapper">
-
-      {/* Barra de filtros */}
       <div className="filter-bar">
+
+        {/* Buscador */}
         <div className="filter-search">
           <span className="search-icon">🔍</span>
           <input
@@ -78,19 +89,32 @@ const ClubList = ({ onSelectClub }) => {
         </div>
 
         <div className="filter-tags">
-          {CARACTERISTICAS_FILTRO.map(({ nombre, icon }) => (
+          {/* Filtros del club — lucide icons */}
+          {CARACTERISTICAS_FILTRO_CLUB.map(({ nombre, icon }) => (
             <button
               key={nombre}
-              className={`filter-tag ${filtrosActivos.includes(nombre) ? 'active' : ''}`}
-              onClick={() => toggleFiltro(nombre)}
+              className={`filter-tag ${filtrosClub.includes(nombre) ? 'active' : ''}`}
+              onClick={() => toggleFiltroClub(nombre)}
             >
               {icon} {nombre}
+            </button>
+          ))}
+
+          <span className="filter-divider">|</span>
+
+          {/* Filtros de cancha — SVG del public */}
+          {CARACTERISTICAS_FILTRO_CANCHA.map(({ nombre }) => (
+            <button
+              key={nombre}
+              className={`filter-tag filter-tag--cancha ${filtrosCancha.includes(nombre) ? 'active' : ''}`}
+              onClick={() => toggleFiltroCancha(nombre)}
+            >
+              {nombre}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Lista de clubes */}
       {clubesFiltrados.length === 0 ? (
         <p className="no-results">No hay clubes que coincidan con los filtros.</p>
       ) : (
