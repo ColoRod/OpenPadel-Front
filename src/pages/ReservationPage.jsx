@@ -132,7 +132,7 @@
                 if (clubName) {
                     const newUrl = `/reserva/${encodeURIComponent(clubName)}/${encodeURIComponent(newCanchaName)}`;
                     console.log('[ReservationPage] Navigating to', newUrl);
-                    navigate(newUrl, { replace: false });
+                    navigate(newUrl, { replace: true });
                 }
             }
             // Llama a la función de fetching con la nueva ID y la fecha actual
