@@ -74,16 +74,20 @@ const MainPage = () => {
   useEffect(() => { fetchReservas(); }, []);
 
   const handleCancelarReserva = async (reservaId) => {
-    if (!window.confirm("¿Estás seguro de que querés cancelar esta reserva?")) return;
-    try {
-      const API_BASE = import.meta.env.VITE_API_URL || '';
-      const res = await fetch(`${API_BASE}/api/reservas/${reservaId}`, { method: "DELETE" });
-      if (!res.ok) throw new Error();
-      setReservas(prev => prev.filter(r => r.reserva_id !== reservaId));
-    } catch {
-      alert("No se pudo cancelar la reserva");
-    }
-  };
+  if (!window.confirm("¿Estás seguro de que querés cancelar esta reserva?")) return;
+
+  try {
+    const API_BASE = import.meta.env.VITE_API_URL || '';
+    const res = await fetch(`${API_BASE}/api/reservas/${reservaId}`, { method: "DELETE" });
+    if (!res.ok) throw new Error("Error cancelando reserva");
+    
+    // Sacarla del estado local — en historial sí aparece como CANCELADA
+    setReservas((prev) => prev.filter((r) => r.reserva_id !== reservaId));
+  } catch (err) {
+    console.error("Error cancelando reserva:", err);
+    alert("No se pudo cancelar la reserva");
+  }
+};
 
   const handleSubirComprobante = async (reservaId, file) => {
     if (!file) return;

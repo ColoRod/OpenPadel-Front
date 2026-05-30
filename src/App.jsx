@@ -8,6 +8,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import AdminConfirmationPage from "./pages/AdminConfirmationPage/AdminConfirmationPage";
 import { PublicRoute, JugadorRoute, AdminRoute } from "./utils/ProtectedRoute.jsx";
+import HistorialPage from "./pages/HistorialPage/HistorialPage";
 
 export default function App() {
 
@@ -75,6 +76,15 @@ export default function App() {
         element={
           <JugadorRoute>
             <ProfilePage />
+          </JugadorRoute>
+        }
+      />
+
+      <Route
+        path="/historial"
+        element={
+          <JugadorRoute>
+            <HistorialPage />
           </JugadorRoute>
         }
       />
