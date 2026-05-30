@@ -169,12 +169,6 @@ export default function HistorialPage() {
                           CANCELAR
                         </button>
                       )}
-                      {r.estado === 'FINALIZADA' && (
-                        <button className={styles.btnDetalle}>VER DETALLE</button>
-                      )}
-                      {r.estado === 'RECHAZADA' && (
-                        <span className={styles.motivoLink}>Ver Motivo</span>
-                      )}
                     </td>
                   </tr>
                 ))
